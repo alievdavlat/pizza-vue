@@ -2,7 +2,7 @@
         <div class="content">
         <div class="container">
           <div class="content__top">
-            <Filter :getData="getData"/>
+            <Filter />
             
             <Sort/>
           </div>
@@ -21,29 +21,36 @@
 import { Filter, Sort, PizzaCard } from '../components';
 
 export default {
-  data() {
-    return {
-      pizzass:[]
-    }
-  },
   components:{
     Filter,
     Sort,
     PizzaCard
   },
-  methods:{
-    async getData(){
-      const res =  await fetch(`http://localhost:3001/${this.$store.state.filtN}`)
-      const data = await res.json()
-      this.pizzass = data
-    }
-  },
-   async mounted() {
-      this.getData()
+  computed:{
+    pizzass(){
+        return this.$store.state.pizzass
+      },
+      selectedSort(){
+        return this.$store.state.sorting
+      }
+    },
+    mounted() {
+      this.$store.dispatch('getinServer' )
     },
     watch:{
-      
+      selectedSort(newValue){
+        this.pizzass.sort((a,b) => {
+          if(newValue === 'name'){
+            return a.name.localeCompare(b.name)
+          } else if(newValue === 'rating'){
+            return a.rating - b.rating
+          } else if(newValue === 'price'){
+            return a.price - b.price
+          }
+        })
+      }
     }
+    
 }
 </script>
 

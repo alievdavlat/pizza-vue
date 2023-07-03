@@ -11,7 +11,7 @@
           </div>
         </RouterLink>
           <div class="header__cart">
-            <RouterLink to="/cart.html" class="button button--cart">
+            <RouterLink to="/cart" class="button button--cart">
               <span>520 ₽</span>
               <div class="button__delimiter"></div>
               <Karzinka/>

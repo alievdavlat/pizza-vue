@@ -17,7 +17,7 @@
   </div>
   <div class="pizza-block__bottom">
     <div class="pizza-block__price">от {{ pizza.price }} ₽</div>
-    <div class="button button--outline button--add">
+    <div class="button button--outline button--add" @click="setData">
       <Plus/>
       <span>Добавить</span>
       <i>2</i>
@@ -29,20 +29,31 @@
 
 <script>
 import { Plus } from '../assets/Icons';
-
+import axios from 'axios'
 export default {
     components: { Plus },
-    data() {
-      return {
-        
-      }
-    },
+    
     props:{
       pizza:{
         type:Object,
         required:true
       }
-    }
+    },
+    computed:{
+      pizzas (){
+        return pizza
+      }
+    },
+    methods: {
+     async setData(){
+     try {
+      const response  = await axios.post('http://localhost:3001/cart', pizza )
+      const { data } = response
+     } catch (error) {
+      console.log(error);
+     }
+     }
+    },
 }
 </script>
 

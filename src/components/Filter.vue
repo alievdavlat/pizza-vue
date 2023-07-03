@@ -12,12 +12,7 @@
 <script>
 import { filterNames } from '../constants';
 export default {
-  props:{
-    getData:{
-      type:Object,
-      required:true
-    }
-  },
+ 
   data() {
     return {
       filteres:filterNames,
@@ -27,8 +22,8 @@ export default {
   methods:{
     handleFilter(name){
       this.filterActive = name
-      $store.commit('filerProducts', name)
-      this.getData()
+      this.$store.commit('filerProducts', name)
+      this.$store.dispatch('getinServer' )
     },
 
   }
